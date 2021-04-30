@@ -11,7 +11,7 @@ const router = express.Router();
 // @access  Public
 router.post("/", async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { username, password, role } = req.body;
 
     let user = await User.findOne({ username });
     if (user) {
@@ -24,6 +24,7 @@ router.post("/", async (req, res) => {
     user = new User({
       username,
       password,
+      role,
     });
 
     // encryption
@@ -36,6 +37,7 @@ router.post("/", async (req, res) => {
     const payload = {
       user: {
         id: user.id,
+        role,
       },
     };
 
@@ -46,7 +48,7 @@ router.post("/", async (req, res) => {
       (error, token) => {
         if (error) throw error;
         return res.json({
-          status: "400",
+          status: "200",
           user,
           token,
         });

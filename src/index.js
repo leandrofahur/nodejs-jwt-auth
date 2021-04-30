@@ -7,6 +7,7 @@ connectDB();
 
 app.use(express.json({ extended: true }));
 app.use("/user", require("./routes/user"));
+app.use("/profile", require("./routes/profile"));
 
 app.get("/", (req, res) => {
   res.json({
